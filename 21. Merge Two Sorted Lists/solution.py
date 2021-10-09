@@ -27,9 +27,9 @@ class Solution:
             pointer = pointer.next
 
         if pointer1 is not None:
-            pointer.next = pointer2
-        if pointer2 is not None:
             pointer.next = pointer1
+        if pointer2 is not None:
+            pointer.next = pointer2
 
         return result.next
 
