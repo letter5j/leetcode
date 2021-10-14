@@ -11,24 +11,15 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-
         if len(preorder) == 0:
             return None
-
         root: TreeNode = TreeNode()
-
-        value = preorder.
-
-        inorder_index = inorder.index(value)
+        value = preorder[0]
+        inorder_root_index = inorder.index(value)
         root.val = value
-
-        if
-        root.left = self.buildTree(preorder[1:inorder_index])
-
-        root
-
-
-        self.buildTree(preorder)
+        root.left = self.buildTree(preorder[1:inorder_root_index + 1], inorder[:inorder_root_index])
+        root.right = self.buildTree(preorder[inorder_root_index + 1:], inorder[inorder_root_index + 1:])
+        return root
 
     def traverse(self, root: Optional[TreeNode]):
         if root is None:
