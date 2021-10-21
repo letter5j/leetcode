@@ -10,35 +10,18 @@ class TreeNode:
 
 
 class TreeInfo:
-    is_BST: bool
-    sumary: int
-    min_value: int
-    max_value: int
-
-
+    is_BST: bool = False
+    sumary: int = 0
+    min_value: int = 0
+    max_value: int = 0
 
 
 class Solution:
-
     max_sum = 0
 
     def maxSumBST(self, root: Optional[TreeNode]) -> int:
-
-        sumary, valid = self.traverse(root)
-
-        return sumary if sumary > 0 else 0
-
-    def is_valid_tree(self, root: Optional[TreeNode]):
-
-        if root is None:
-            return True
-
-        if root.left is not None and root.left.val >= root.val:
-            return False
-        if root.right is not None and root.right.val <= root.val:
-            return False
-
-        return True
+        self.traverse(root)
+        return self.max_sum
 
     def traverse(self, root: Optional[TreeNode]) -> TreeInfo:
 
@@ -46,12 +29,26 @@ class Solution:
             treeinfo = TreeInfo()
             treeinfo.is_BST = True
             treeinfo.sumary = 0
-            treeinfo.max_value = 0
-            treeinfo.min_value = 0
+            treeinfo.max_value = float("-inf")
+            treeinfo.min_value = float("inf")
             return treeinfo
 
-        left_treeinfo  = self.traverse(root.left)
-        right_treeinfo  = self.traverse(root.right)
+        left_treeinfo = self.traverse(root.left)
+        right_treeinfo = self.traverse(root.right)
 
-        if
+        treeinfo = TreeInfo()
+        if left_treeinfo.is_BST and right_treeinfo.is_BST and left_treeinfo.max_value < root.val < right_treeinfo.min_value:
 
+            sumary = root.val + left_treeinfo.sumary + right_treeinfo.sumary
+
+            self.max_sum = max(sumary, self.max_sum)
+
+            treeinfo.is_BST = True
+            treeinfo.sumary = sumary
+            treeinfo.max_value = max(root.val, right_treeinfo.max_value)
+            treeinfo.min_value = min(root.val, left_treeinfo.min_value)
+
+        else:
+            treeinfo.is_BST = False
+
+        return treeinfo
