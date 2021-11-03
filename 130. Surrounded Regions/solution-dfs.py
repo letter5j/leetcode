@@ -1,5 +1,4 @@
-from typing import Optional, Dict, Set, List, Tuple
-import copy
+from typing import List
 
 
 class Solution:
@@ -18,6 +17,7 @@ class Solution:
                     board[row][column] = "O"
                 elif board[row][column] == "O":
                     board[row][column] = "X"
+
     def traverse(self, board: List[List[str]], row: int, column: int):
         if row < 0 or row >= len(board) or column < 0 or column >= len(board[row]):
             return
