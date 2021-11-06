@@ -68,9 +68,3 @@ class Solution:
                     priority_queue.put(NodeInfo(next_node_index, next_node_distance))
 
         return destination_from_start
-
-
-a = Solution()
-a.networkDelayTime(
-    [[2, 1, 1], [2, 3, 1], [3, 4, 1]], n=4, k=2
-)
