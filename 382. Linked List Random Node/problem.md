@@ -1,44 +1,43 @@
-295. Find Median from Data Stream
-Hard
+382. Linked List Random Node
+Medium
 
-The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+Given a singly linked list, return a random node's value from the linked list. Each node must have the same probability of being chosen.
 
-- For example, for `arr = [2,3,4]`, the median is `3`.
-- For example, for `arr = [2,3]`, the median is `(2 + 3) / 2 = 2.5`.
+Implement the `Solution` class:
 
-Implement the MedianFinder class:
-
-- `MedianFinder()` initializes the `MedianFinder` object.
-- `void addNum(int num)` adds the integer num from the data stream to the data structure.
-- `double findMedian()` returns the median of all elements so far. Answers within `10-5` of the actual answer will be accepted.
+- `Solution(ListNode head)` Initializes the object with the integer array nums.
+- `int getRandom()` Chooses a node randomly from the list and returns its value. All the nodes of the list should be equally likely to be choosen.
  
 
 Example 1:
 
+![](https://assets.leetcode.com/uploads/2021/03/16/getrand-linked-list.jpg)
+
 ```
 Input
-["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
-[[], [1], [2], [], [3], []]
+["Solution", "getRandom", "getRandom", "getRandom", "getRandom", "getRandom"]
+[[[1, 2, 3]], [], [], [], [], []]
 Output
-[null, null, null, 1.5, null, 2.0]
+[null, 1, 3, 2, 2, 3]
 
 Explanation
-MedianFinder medianFinder = new MedianFinder();
-medianFinder.addNum(1);    // arr = [1]
-medianFinder.addNum(2);    // arr = [1, 2]
-medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
-medianFinder.addNum(3);    // arr[1, 2, 3]
-medianFinder.findMedian(); // return 2.0
+Solution solution = new Solution([1, 2, 3]);
+solution.getRandom(); // return 1
+solution.getRandom(); // return 3
+solution.getRandom(); // return 2
+solution.getRandom(); // return 2
+solution.getRandom(); // return 3
+// getRandom() should return either 1, 2, or 3 randomly. Each element should have equal probability of returning.
 ```
 
 Constraints:
 
-- -105 <= num <= 105
-- There will be at least one element in the data structure before calling findMedian.
-- At most 5 * 104 calls will be made to addNum and findMedian.
+- The number of nodes in the linked list will be in the range [1, 104].
+- -104 <= Node.val <= 104
+- At most 104 calls will be made to getRandom.
  
 
 Follow up:
 
-- If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
-- If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+- What if the linked list is extremely large and its length is unknown to you?
+- Could you solve this efficiently without using extra space?
