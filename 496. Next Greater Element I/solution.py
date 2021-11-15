@@ -23,11 +23,3 @@ class Solution:
             result[nums[i]] = stack[len(stack) - 1] if len(stack) != 0 else -1
             stack.append(nums[i])
         return result
-
-
-a = Solution()
-
-a.nextGreaterElement(
-    [4, 1, 2],
-    [1, 3, 4, 2]
-)
