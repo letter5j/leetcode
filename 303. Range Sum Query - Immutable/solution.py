@@ -12,8 +12,3 @@ class NumArray:
 
     def sumRange(self, left: int, right: int) -> int:
         return self.nums[right] - (self.nums[left - 1] if left > 0 else 0)
-
-obj = NumArray(
-[-2,0,3,-5,2,-1]
-)
-print(obj.sumRange(0,2))
