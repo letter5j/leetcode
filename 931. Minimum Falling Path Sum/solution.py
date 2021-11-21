@@ -30,8 +30,24 @@ class Solution:
         memo[(row, column)] = result
         return result
 
-a = Solution()
+    def minFallingPathSum_bottom_up(self, matrix: List[List[int]]) -> int:
 
-a.minFallingPathSum(
-[[2,1,3],[6,5,4],[7,8,9]]
-)
+        row_length = len(matrix)
+        column_length = len(matrix[0])
+
+        dp: List[List[int]] = list()
+        for row in range(row_length + 2):
+            dp.append([float("inf")] * (column_length + 2))
+        min_path = float("inf")
+        for row in range(1, row_length + 1, 1):
+            for column in range(1, column_length + 1, 1):
+                result = min(
+                    dp[row - 1][column - 1],
+                    dp[row - 1][column],
+                    dp[row - 1][column + 1]
+                )
+                dp[row][column] = (result if result != float("inf") else 0) + matrix[row - 1][column - 1]
+                if row == row_length:
+                    if dp[row][column] < min_path:
+                        min_path = dp[row][column]
+        return min_path
