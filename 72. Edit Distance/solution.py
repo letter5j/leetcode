@@ -1,4 +1,4 @@
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
 
 class Solution:
@@ -28,3 +28,29 @@ class Solution:
         memo[(word1_index, word2_index)] = result
 
         return result
+
+    def min_distance_bottom_up(self, word1: str, word2: str) -> int:
+
+        dp: List[List[int]] = list()
+
+        word1_length = len(word1)
+        word2_length = len(word2)
+
+        for i in range(0, word1_length + 1, 1):
+            j = [i] * (word2_length + 1)
+            dp.append(j)
+        for j in range(0, word2_length + 1, 1):
+            dp[0][j] = j
+        for i in range(1, word1_length + 1, 1):
+
+            for j in range(1, word2_length + 1, 1):
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]  # move left without change
+                else:
+                    dp[i][j] = min(
+                        dp[i][j - 1] + 1,  # insert
+                        dp[i - 1][j] + 1,  # delete
+                        dp[i - 1][j - 1] + 1  # replace
+                    )
+
+        return dp[word1_length][word2_length]
