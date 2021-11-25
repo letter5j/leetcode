@@ -60,10 +60,3 @@ class Solution:
                 continue
             new_text1 = new_text1 + char
         return new_text1, new_text2
-
-
-s = Solution()
-s.longestCommonSubsequence_top_down(
-    "abcba",
-    "abcbcba"
-)
