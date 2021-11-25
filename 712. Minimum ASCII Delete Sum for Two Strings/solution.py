@@ -2,7 +2,7 @@ from typing import Dict, Tuple, List
 
 
 class Solution:
-    def minDistance_bottom_up(self, s1: str, s2: str) -> int:
+    def minimumDeleteSum_bottom_up(self, s1: str, s2: str) -> int:
 
         s1_length = len(s1)
         s2_length = len(s2)
@@ -25,3 +25,29 @@ class Solution:
                     )
 
         return dp[s1_length][s2_length]
+
+    def minimumDeleteSum_top_down(self, s1: str, s2: str) -> int:
+        memo: Dict[Tuple[int, int], int] = dict()
+
+        result = self.dp_top_down(s1, s2, len(s1) - 1, len(s2) - 1, memo)
+        return result
+
+    def dp_top_down(self, s1: str, s2: str, index1: int, index2: int, memo: Dict[Tuple[int, int], int]) -> int:
+
+        if index1 < 0 and index2 >= 0:
+            return sum(map((lambda char: ord(char)), s2[:index2 + 1]))
+        if index2 < 0 and index1 >= 0:
+            return sum(map((lambda char: ord(char)), s1[:index1 + 1]))
+        if index1 < 0 and index2 < 0:
+            return 0
+
+        if (index1, index2) in memo:
+            return memo[index1, index2]
+
+        if s1[index1] == s2[index2]:
+            result = self.dp_top_down(s1, s2, index1 - 1, index2 - 1, memo)
+        else:
+            result = min(self.dp_top_down(s1, s2, index1, index2 - 1, memo) + ord(s2[index2]),
+                         self.dp_top_down(s1, s2, index1 - 1, index2, memo) + ord(s1[index1]))
+        memo[index1, index2] = result
+        return result
