@@ -1,3 +1,4 @@
+import bisect
 from typing import List
 
 
@@ -5,7 +6,7 @@ class Solution:
 
     def lengthOfLIS(self, nums: List[int]) -> int:
 
-        return self.dp_solution(nums)
+        return self.dp_binary_search(nums)
 
     def dp_solution(self, nums: List[int]) -> int:
 
@@ -18,3 +19,13 @@ class Solution:
                     dp[i] = max(dp[i], dp[j] + 1)
 
         return max(dp)
+
+    def dp_binary_search(self, nums: List[int]):
+        dp: List[int] = list()
+        for num in nums:
+            index = bisect.bisect_left(dp, num)
+            if index == len(dp):
+                dp.append(num)
+            else:
+                dp[index] = num
+        return len(dp)
