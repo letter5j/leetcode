@@ -27,3 +27,23 @@ class Solution:
         memo[row_index, column_index] = result
         return result
 
+    def calculateMinimumHP_bottom_up(self, dungeon: List[List[int]]) -> int:
+
+        row_length = len(dungeon)
+        column_length = len(dungeon[0])
+        dp: List[List[int]] = [[float("inf")] * (column_length) for _ in range(row_length)]
+        for row_index in range(row_length - 1, -1, -1):
+            for column_index in range(column_length - 1, -1, -1):
+                if (row_index == row_length - 1) and (column_index == column_length - 1):
+                    dp[row_index][column_index] = 1 if dungeon[row_index][column_index] > 0 else abs(
+                        dungeon[row_index][column_index]) + 1
+                else:
+                    dp[row_index][column_index] = min(
+                        dp[row_index + 1][column_index] if row_index < row_length - 1 else float("inf"),
+                        dp[row_index][column_index + 1] if column_index < column_length - 1 else float("inf")) - \
+                                                  dungeon[row_index][
+                                                      column_index]
+                    if dp[row_index][column_index] <= 0:
+                        dp[row_index][column_index] = 1
+
+        return dp[0][0]
